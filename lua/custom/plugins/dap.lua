@@ -1,0 +1,36 @@
+local dap = require('dap')
+
+-- Node (TS/JS)
+dap.adapters.node2 = {
+  type = 'executable',
+  command = 'node',
+  args = { os.getenv('HOME') .. '/.local/share/nvim/mason/packages/node-debug2-adapter/out/src/nodeDebug.js' }
+}
+dap.configurations.typescript = {
+  {
+    type = 'node2',
+    request = 'launch',
+    name = 'Launch Program',
+    program = '${file}',
+    cwd = vim.fn.getcwd(),
+    sourceMaps = true,
+    protocol = 'inspector',
+  },
+}
+
+-- .NET
+dap.adapters.coreclr = {
+  type = 'executable',
+  command = '/opt/netcoredbg/netcoredbg/',
+  args = { '--interpreter=vscode' }
+}
+dap.configurations.cs = {
+  {
+    type = "coreclr",
+    name = "Launch - NetCoreDbg",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Debug/net9.0/', 'file')
+    end,
+  },
+}
