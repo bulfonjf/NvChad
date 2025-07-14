@@ -34,16 +34,6 @@ lspconfig.ts_ls.setup {
 
         vim.lsp.buf.code_action {
           context = {
-            only = { "source.addMissingImports" },
-            diagnostics = {},
-          },
-          apply = true,
-        }
-
-        vim.cmd "sleep 300m" -- Sleep for 300 milliseconds
-
-        vim.lsp.buf.code_action {
-          context = {
             only = { "source.organizeImports" },
             diagnostics = {},
           },
