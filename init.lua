@@ -34,9 +34,7 @@ require "autocmds"
 
 vim.schedule(function()
   require "mappings"
-  require "custom.plugins.mappings"
 end)
-
 
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*",

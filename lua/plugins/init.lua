@@ -6,25 +6,31 @@ return {
     end,
   },
 
-  -- DAP Support
-  { "mfussenegger/nvim-dap" },
-  { "rcarriga/nvim-dap-ui" },
-
   -- Mason for managing LSPs/formatters
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
-  { "jayp0521/mason-null-ls.nvim" },
   { "jayp0521/mason-nvim-dap.nvim" },
 
   -- Treesitter for syntax highlighting
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "json",
+        "javascript",
+        "typescript",
+        "tsx",
+        "c_sharp",
+      },
+      highlight = { enable = true },
+    },
   },
-
-  -- Completion
-  { "hrsh7th/nvim-cmp" },
-  { "hrsh7th/cmp-nvim-lsp" },
 
   -- QuickFix
   {
@@ -66,7 +72,7 @@ return {
     opts = require "configs.conform",
   },
   { "nvimtools/none-ls.nvim" },
-  { "mfussenegger/nvim-lint" },
+  --{ "mfussenegger/nvim-lint" },
 
   -- IA assistance
   {
