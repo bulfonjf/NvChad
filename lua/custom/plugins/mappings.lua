@@ -82,6 +82,15 @@ map("n", "<leader>hF", function()
   gitsigns.diffthis "~"
 end, opts)
 
+map("n", "<leader>cc", function()
+  local message = vim.fn.input("Commit message: ", "")
+  if message ~= nil and message ~= "" then
+    vim.cmd("silent !git commit -m '" .. vim.fn.escape(message, "'") .. "'")
+  else
+    print "Commit aborted: No message provided."
+  end
+end, { noremap = true, silent = true, desc = "Git Commit with Message" })
+
 -- Toggles
 map("n", "<leader>tb", gitsigns.toggle_current_line_blame, opts)
 map("n", "<leader>td", gitsigns.toggle_deleted, opts)
@@ -121,14 +130,14 @@ map(
 map(
   "n",
   "<leader>cs",
-  "<cmd>Trouble symbols toggle focus=false<cr>",
+  "<cmd>Trouble symbols toggle focus=false win.size=0.4<cr>",
   vim.tbl_deep_extend("force", opts, { desc = "Symbols (Trouble)" })
 )
 
 map(
   "n",
   "<leader>cl",
-  "<cmd>Trouble lsp toggle focus=true win.position=right win.size=0.4<cr>",
+  "<cmd>Trouble lsp toggle focus=true win.position=right win.size=0.4 <cr>",
   vim.tbl_deep_extend("force", opts, { desc = "LSP Definitions / references / ... (Trouble)" })
 )
 
