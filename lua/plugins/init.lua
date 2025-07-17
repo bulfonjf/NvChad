@@ -1,5 +1,46 @@
 return {
   {
+    "gelguy/wilder.nvim",
+    event = "CmdlineEnter",
+    config = function()
+      local wilder = require "wilder"
+      wilder.setup { modes = { ":", "/", "?" } }
+      wilder.set_option(
+        "renderer",
+        wilder.renderer_mux {
+          [":"] = wilder.popupmenu_renderer(wilder.popupmenu_border_theme {
+            highlights = {
+              border = "Normal", -- highlight to use for the border
+            },
+            left = { " ", wilder.popupmenu_devicons() },
+            right = { " ", wilder.popupmenu_scrollbar() },
+            -- 'single', 'double', 'rounded' or 'solid'
+            -- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
+            border = "rounded",
+          }),
+          ["/"] = wilder.wildmenu_renderer {
+            highlighter = wilder.basic_highlighter(),
+          },
+        }
+      )
+    end,
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    enable = false,
+    lazy = true,
+    config = function()
+      vim.o.foldcolumn = "1" -- show fold column
+      vim.o.foldlevel = 99
+      vim.o.foldenable = true
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+
+      require("ufo").setup()
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require "configs.lspconfig"
@@ -130,6 +171,7 @@ return {
   -- Auto save
   {
     "okuuva/auto-save.nvim",
+    enabled = false,
     cmd = "ASToggle", -- optional for lazy loading on command
     event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
     opts = {
