@@ -16,9 +16,6 @@ map("n", "gr", vim.lsp.buf.references, opts)
 map("n", "K", vim.lsp.buf.hover, opts)
 map("n", "<leader>rn", vim.lsp.buf.rename, opts)
 map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-map("n", "<leader>f", function()
-  vim.lsp.buf.format()
-end, opts)
 
 -- Diagnostics
 map("n", "<leader>d", vim.diagnostic.open_float, opts)
@@ -161,10 +158,6 @@ map(
   "<cmd>Trouble qflist toggle<cr>",
   vim.tbl_deep_extend("force", opts, { desc = "Quickfix List (Trouble)" })
 )
--- === Formatting (conform.nvim) ===
-map("n", "<leader>cf", function()
-  require("conform").format()
-end, opts)
 
 -- === Buffers ===
 map("n", "<leader>bc", ":%bd!|e#|bd!#<CR>", opts)
