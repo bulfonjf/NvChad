@@ -1,5 +1,24 @@
 return {
   -- Navigation
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = {
+      view = {
+        side = "right",
+        width = 30,
+        preserve_window_proportions = true,
+      },
+      renderer = {
+        full_name = true,
+      },
+      actions = {
+        open_file = {
+          resize_window = true,
+        },
+      },
+    },
+  },
   {
     "ThePrimeagen/harpoon",
     lazy = false,
@@ -9,7 +28,7 @@ return {
       settings = {
         save_on_toggle = true,
         sync_on_ui_close = true,
-     },
+      },
     },
     config = function()
       local harpoon = require "harpoon"
@@ -162,7 +181,7 @@ return {
       require("diffview").setup()
     end,
   },
-  { "tpope/vim-fugitive",  cmd = { "G", "Git", "Gstatus", "Gdiffsplit" } },
+  { "tpope/vim-fugitive", cmd = { "G", "Git", "Gstatus", "Gdiffsplit" } },
 
   -- Formatting and Linting
   {
