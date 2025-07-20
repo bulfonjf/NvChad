@@ -201,6 +201,7 @@ map(
   ":%bd!|e#|bd!#<CR>",
   { silent = true, noremap = true, desc = "Close all buffers except current" }
 )
+map("n", "<leader>rb", ":ToggleAdjustWidth<CR>", { silent = true, noremap = true, desc = "Adjust Buffer Width" })
 
 -- === AI assistant (codeium.nvim) ===
 
