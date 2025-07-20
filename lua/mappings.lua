@@ -60,17 +60,17 @@ map("n", "<leader>gb", ":Telescope git_branches<CR>", opts)
 map("n", "<leader>gt", ":Telescope git_stash<CR>", opts)
 
 -- Navigation
-map("n", "]c", function()
+map("n", "]h", function()
   if vim.wo.diff then
-    return "]c"
+    return "]h"
   end
   vim.schedule(gitsigns.next_hunk)
   return "<Ignore>"
 end, { expr = true })
 
-map("n", "[c", function()
+map("n", "[h", function()
   if vim.wo.diff then
-    return "[c"
+    return "[h"
   end
   vim.schedule(gitsigns.prev_hunk)
   return "<Ignore>"
