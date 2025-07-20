@@ -181,7 +181,6 @@ return {
       require("diffview").setup()
     end,
   },
-  { "tpope/vim-fugitive", cmd = { "G", "Git", "Gstatus", "Gdiffsplit" } },
 
   -- Formatting and Linting
   {
