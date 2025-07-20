@@ -191,3 +191,20 @@ map("n", "<leader>tx", toggle_diagnostics, {silent=true, noremap=true, desc = "T
 -- Quick save
 map("n", "<leader>w", ":w<CR>", { silent = true, noremap = true, desc = "Save File" })
 map("n", "<leader>q", ":q<CR>", { silent = true, noremap = true, desc = "Quit" })
+
+
+-- NvChad Mappings
+map("n", "<C-Left>", "<C-w>h", { desc = "switch window left" })
+map("n", "<C-Right>", "<C-w>l", { desc = "switch window right" })
+map("n", "<C-Down>", "<C-w>j", { desc = "switch window down" })
+map("n", "<C-Up>", "<C-w>k", { desc = "switch window up" })
+
+-- Unmap NvChad default window navigation
+vim.schedule(function()
+  pcall(vim.keymap.del, "n", "<C-h>")
+  pcall(vim.keymap.del, "n", "<C-j>")
+  pcall(vim.keymap.del, "n", "<C-k>")
+  pcall(vim.keymap.del, "n", "<C-l>")
+  pcall(vim.keymap.del, "n", "<leader>h")
+  pcall(vim.keymap.del, "n", "<leader>v")
+end)
