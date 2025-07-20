@@ -1,4 +1,68 @@
 return {
+  -- Navigation
+  {
+    "ThePrimeagen/harpoon",
+    lazy = false,
+    dependencies = { "nvim-lua/plenary.nvim" },
+    branch = "harpoon2",
+    opts = {
+      settings = {
+        save_on_toggle = true,
+        sync_on_ui_close = true,
+     },
+    },
+    config = function()
+      local harpoon = require "harpoon"
+      harpoon.setup()
+      -- basic telescope configuration
+      --local conf = require("telescope.config").values
+      -- local function toggle_telescope(harpoon_files)
+      --   local file_paths = {}
+      --   for _, item in ipairs(harpoon_files.items) do
+      --     table.insert(file_paths, item.value)
+      --   end
+      --
+      --   require("telescope.pickers")
+      --     .new({}, {
+      --       prompt_title = "Harpoon",
+      --       finder = require("telescope.finders").new_table {
+      --         results = file_paths,
+      --       },
+      --       previewer = conf.file_previewer {},
+      --       sorter = conf.generic_sorter {},
+      --     })
+      --     :find()
+      -- end
+
+      -- harpoon:extend {
+      --   UI_CREATE = function(cx)
+      --     vim.keymap.set("n", "<leader>v", function()
+      --       harpoon.ui:select_menu_item { vsplit = true }
+      --     end, { buffer = cx.bufnr, silent = true, noremap = true, desc = "Harpoon select vsplit" })
+      --
+      --     vim.keymap.set("n", "<leader>s", function()
+      --       harpoon.ui:select_menu_item { split = true }
+      --     end, { buffer = cx.bufnr, silent = true, noremap = true, desc = "Harpoon select split" })
+      --   end,
+      -- }
+    end,
+  },
+
+  -- Telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      {
+        "ThePrimeagen/harpoon",
+        config = function()
+          require("harpoon").setup()
+          require("telescope").load_extension "harpoon"
+        end,
+      },
+    },
+  },
+
+  -- Commands
   {
     "gelguy/wilder.nvim",
     event = "CmdlineEnter",
@@ -98,12 +162,7 @@ return {
       require("diffview").setup()
     end,
   },
-  { "tpope/vim-fugitive", event = { "CmdlineEnter *Git*", "DirChanged" } },
-  {
-    "akinsho/git-conflict.nvim",
-    version= "*",
-    config = true,
-  },
+  { "tpope/vim-fugitive", lazy = false },
 
   -- Formatting and Linting
   {

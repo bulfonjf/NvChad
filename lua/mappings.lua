@@ -11,14 +11,14 @@ map("i", "jk", "<ESC>")
 
 -- === LSP (nvim-lspconfig + nvim-cmp) ===
 -- Go to definitions, references, hover, etc
-map("n", "gd", vim.lsp.buf.definition, {silent=true, noremap=true, desc = "Go to Definition"})
-map("n", "gr", vim.lsp.buf.references, {silent=true, noremap=true, desc = "Go to References"})
-map("n", "K", vim.lsp.buf.hover, {silent=true, noremap=true, desc = "Hover Documentation"})
-map("n", "<leader>rn", vim.lsp.buf.rename, {silent=true, noremap=true, desc = "Rename Symbol"})
-map("n", "<leader>ca", vim.lsp.buf.code_action, {silent=true, noremap=true, desc = "Code Actions"})
+map("n", "gd", vim.lsp.buf.definition, { silent = true, noremap = true, desc = "Go to Definition" })
+map("n", "gr", vim.lsp.buf.references, { silent = true, noremap = true, desc = "Go to References" })
+map("n", "K", vim.lsp.buf.hover, { silent = true, noremap = true, desc = "Hover Documentation" })
+map("n", "<leader>rn", vim.lsp.buf.rename, { silent = true, noremap = true, desc = "Rename Symbol" })
+map("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, noremap = true, desc = "Code Actions" })
 
 -- Diagnostics
-map("n", "<leader>d", vim.diagnostic.open_float, {silent=true, noremap=true, desc = "Open Diagnostics Float"})
+map("n", "<leader>d", vim.diagnostic.open_float, { silent = true, noremap = true, desc = "Open Diagnostics Float" })
 
 -- === Completion (nvim-cmp) ===
 -- Usually mapped inside cmp config, but these help:
@@ -52,7 +52,13 @@ map("n", "<leader>du", function()
   require("dapui").toggle()
 end, { silent = true, noremap = true, desc = "Toggle Debug UI" })
 
--- === Git (gitsigns.nvim + fugitive + diffview.nvim + git-conflict.nvim) ===
+-- === Git (gitsigns.nvim + fugitive + diffview.nvim + telescope) ===
+-- Telescope Git commands
+map("n", "<leader>gs", ":Telescope git_status<CR>", opts)
+map("n", "<leader>gc", ":Telescope git_commits<CR>", opts)
+map("n", "<leader>gb", ":Telescope git_branches<CR>", opts)
+map("n", "<leader>gt", ":Telescope git_stash<CR>", opts)
+
 -- Navigation
 map("n", "]c", function()
   if vim.wo.diff then
@@ -69,6 +75,34 @@ map("n", "[c", function()
   vim.schedule(gitsigns.prev_hunk)
   return "<Ignore>"
 end, { expr = true })
+
+-- Harpoon
+local harpoon = require "harpoon"
+map("n", "<leader>th", "<cmd>Telescope harpoon marks<CR>", { desc = "Telescope Harpoon Marks" })
+map("n", "<leader>a", function()
+  harpoon:list():add()
+end, { desc = "Harpoon add file" })
+map("n", "<leader>ho", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Harpoon toggle menu " })
+map("n", "<leader>1", function()
+  harpoon:list():select(1)
+end, { desc = "Harpoon select 1" })
+map("n", "<leader>2", function()
+  harpoon:list():select(2)
+end, { desc = "Harpoon select 2" })
+map("n", "<leader>3", function()
+  harpoon:list():select(3)
+end, { desc = "Harpoon select 3" })
+map("n", "<leader>4", function()
+  harpoon:list():select(4)
+end, { desc = "Harpoon select 4" })
+map("n", "<leader>hp", function()
+  harpoon:list():prev()
+end, { desc = "Harpoon select prev" })
+map("n", "<leader>hn", function()
+  harpoon:list():next()
+end, { desc = "Harpoon  select next" })
 
 -- Hunk actions
 map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
@@ -95,7 +129,12 @@ map("n", "<leader>cc", function()
 end, { noremap = true, silent = true, desc = "Git Commit with Message" })
 
 -- Toggles
-map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { silent = true, noremap = true, desc = "Toggle Line Git Blame" })
+map(
+  "n",
+  "<leader>tb",
+  gitsigns.toggle_current_line_blame,
+  { silent = true, noremap = true, desc = "Toggle Line Git Blame" }
+)
 map("n", "<leader>td", gitsigns.toggle_deleted, { silent = true, noremap = true, desc = "Toggle Deleted Lines" })
 map("n", "<leader>ts", gitsigns.toggle_signs, { silent = true, noremap = true, desc = "Toggle Git Signs" })
 
@@ -111,10 +150,6 @@ end, { silent = true, noremap = true, desc = "Reset Visual Hunk" })
 -- === Diffview ===
 map("n", "<leader>gd", ":DiffviewOpen<CR>", opts)
 map("n", "<leader>gD", ":DiffviewClose<CR>", opts)
-
--- === GitConflict ===
-map("n", "<leader>gc", ":GitConflictListQf<CR>", opts)
-map("n", "<leader>gh", ":GitConflictChooseHunk<CR>", opts)
 
 -- === Trouble ===
 map(
@@ -160,7 +195,12 @@ map(
 )
 
 -- === Buffers ===
-map("n", "<leader>bc", ":%bd!|e#|bd!#<CR>", {silent=true, noremap=true, desc = "Close all buffers except current"})
+map(
+  "n",
+  "<leader>bc",
+  ":%bd!|e#|bd!#<CR>",
+  { silent = true, noremap = true, desc = "Close all buffers except current" }
+)
 
 -- === AI assistant (codeium.nvim) ===
 
@@ -177,21 +217,19 @@ function _G.toggle_diagnostics()
   vim.g.diagnostics_visible = not vim.g.diagnostics_visible
   if vim.g.diagnostics_visible then
     vim.diagnostic.show()
-    print("Diagnostics: ON")
+    print "Diagnostics: ON"
   else
     vim.diagnostic.hide()
-    print("Diagnostics: OFF")
+    print "Diagnostics: OFF"
   end
 end
 
 -- Example mapping: <leader>td to toggle diagnostics
-map("n", "<leader>tx", toggle_diagnostics, {silent=true, noremap=true, desc = "Toggle Diagnostics" })
-
+map("n", "<leader>tx", toggle_diagnostics, { silent = true, noremap = true, desc = "Toggle Diagnostics" })
 
 -- Quick save
 map("n", "<leader>w", ":w<CR>", { silent = true, noremap = true, desc = "Save File" })
 map("n", "<leader>q", ":q<CR>", { silent = true, noremap = true, desc = "Quit" })
-
 
 -- NvChad Mappings
 map("n", "<C-Left>", "<C-w>h", { desc = "switch window left" })
