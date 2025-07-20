@@ -181,6 +181,27 @@ return {
       require("diffview").setup()
     end,
   },
+  {
+    "akinsho/git-conflict.nvim",
+    lazy = false,
+    --tag = "v2.1.0",
+    commit = "4bbfdd9",
+    --version = "v2.1.0",
+    config = function()
+      require("git-conflict").setup {
+        -- Your existing git-conflict config
+        default_mappings = true,
+        disable_diagnostics = false,
+        debug = true,
+        -- Add this to your highlights if you want
+        highlights = {
+          incoming = "DiffText",
+          current = "DiffAdd",
+        },
+      }
+    end,
+    dependencies = { "yorickpeterse/nvim-pqf" },
+  },
 
   -- Formatting and Linting
   {

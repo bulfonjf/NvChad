@@ -53,6 +53,8 @@ map("n", "<leader>du", function()
 end, { silent = true, noremap = true, desc = "Toggle Debug UI" })
 
 -- === Git (gitsigns.nvim + fugitive + diffview.nvim + telescope) ===
+-- Git Conflict
+map("n", "<leader>cr", ":GitConflictRefresh<CR>", opts)
 -- Telescope Git commands
 map("n", "<leader>gs", ":Telescope git_status<CR>", opts)
 map("n", "<leader>gc", ":Telescope git_commits<CR>", opts)
