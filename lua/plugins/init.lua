@@ -101,9 +101,8 @@ return {
   { "tpope/vim-fugitive", event = { "CmdlineEnter *Git*", "DirChanged" } },
   {
     "akinsho/git-conflict.nvim",
-    config = function()
-      require("pqf").setup {}
-    end,
+    version= "*",
+    config = true,
   },
 
   -- Formatting and Linting
