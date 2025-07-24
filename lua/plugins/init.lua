@@ -1,4 +1,18 @@
 return {
+  -- Colorscheme
+  {
+    "projekt0n/github-nvim-theme",
+    name = "github-theme",
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require("github-theme").setup {
+        -- ...
+      }
+
+      vim.cmd "colorscheme github_dark"
+    end,
+  },
   -- Navigation
 
   {
@@ -179,22 +193,8 @@ return {
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("diffview").setup {
-        hooks = {
-          diff_buf_win_enter = function(bufnr, winid, ctx)
-            if ctx.layout_name:match "^diff2" then
-              if ctx.symbol == "a" then
-                vim.opt_local.winhl = table.concat({
-                  "DiffAdd:DiffviewDiffAddAsDelete",
-                  "DiffDelete:DiffviewDiffDelete",
-                }, ",")
-              elseif ctx.symbol == "b" then
-                vim.opt_local.winhl = table.concat({
-                  "DiffDelete:DiffviewDiffDelete",
-                }, ",")
-              end
-            end
-          end,
-        },
+        enhanced_diff_hl = true,
+        
       }
     end,
   },

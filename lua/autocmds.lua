@@ -1,4 +1,11 @@
 require "nvchad.autocmds"
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "DiffviewFiles,DiffviewFileHistory",
+  callback = function()
+    vim.opt_local.diffopt:append("iwhite")     -- Ignore whitespace if needed
+    vim.opt_local.diffopt:append("linematch:60") -- Better word diff (tweak value)
+  end,
+})
 
 local toggle_state = {}
 
