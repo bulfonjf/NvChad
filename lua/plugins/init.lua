@@ -1,4 +1,18 @@
 return {
+  -- markdown
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+ft = { "markdown" },
+        config = function()
+            require('render-markdown').setup({
+                enabled = true,
+            })
+        end,
+},
   -- Colorscheme
   {
     "projekt0n/github-nvim-theme",
