@@ -6,13 +6,19 @@ local map = vim.keymap.set
 local opts = { silent = true, noremap = true }
 local gitsigns = require "gitsigns"
 
+map("n", "<leader>cdc",
+function()
+       vim.b.cmp_enabled = not vim.b.cmp_enabled
+       require('cmp').setup.buffer { enabled = vim.b.cmp_enabled }
+ end, { noremap = true, silent = true })
+
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
 -- === LSP (nvim-lspconfig + nvim-cmp) ===
 -- Go to definitions, references, hover, etc
 map("n", "gd", vim.lsp.buf.definition, { silent = true, noremap = true, desc = "Go to Definition" })
-map("n", "gr", vim.lsp.buf.references, { silent = true, noremap = true, desc = "Go to References" })
+map("n", "gr","<cmd>Trouble lsp_references<cr>", { silent = true, noremap = true, desc = "Go to References" })
 map("n", "K", vim.lsp.buf.hover, { silent = true, noremap = true, desc = "Hover Documentation" })
 map("n", "<leader>rn", vim.lsp.buf.rename, { silent = true, noremap = true, desc = "Rename Symbol" })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, noremap = true, desc = "Code Actions" })

@@ -1,4 +1,16 @@
 return {
+{
+    "m4xshen/hardtime.nvim",
+    lazy = false,
+    dependencies = { "MunifTanjim/nui.nvim" },
+ opts = {
+      disabled_keys = {
+        ["<Up>"] = false, -- Allow <Up> key
+        ["<Down>"] = false,
+        ["<Left>"] = false,
+        ["<Right>"] = false,
+      },
+    }, },
   -- markdown
   {
     'MeanderingProgrammer/render-markdown.nvim',
@@ -217,55 +229,14 @@ ft = { "markdown" },
   {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- uncomment for format on save
+    enabled=true,
     opts = require "configs.conform",
   },
   { "nvimtools/none-ls.nvim" },
   --{ "mfussenegger/nvim-lint" },
 
   -- IA assistance
-  {
-    "zbirenbaum/copilot.lua",
-    enabled = true,
-    lazy = false,
-    opts = {
-      suggestion = {
-        auto_trigger = true,
-        debounce = 200,
-        keymap = {
-          accept = "<S-n>",
-          next = "<S-e>",
-          prev = "<S-m>",
-          dismiss = "<S-h>",
-        },
-      },
-      panel = {
-        auto_refresh = true,
-      },
-      filetypes = {
-        ["*"] = true,
-        gitcommit = false,
-        markdown = false,
-      },
-    },
-    config = function(_, opts)
-      local copilot = require "copilot"
-      copilot.setup(opts)
-
-      -- Toggle Copilot with <leader>cp
-      vim.keymap.set("n", "<leader>cp", function()
-        local enabled = not vim.g.copilot_enabled
-        vim.g.copilot_enabled = enabled
-        if enabled then
-          copilot.setup(opts)
-          vim.cmd "Copilot enable"
-          vim.notify("Copilot enabled", vim.log.levels.INFO)
-        else
-          vim.cmd "Copilot disable"
-          vim.notify("Copilot disabled", vim.log.levels.WARN)
-        end
-      end, { desc = "Toggle Copilot" })
-    end,
-  },
+  
   {
     "kiddos/gemini.nvim",
     enabled = true,
@@ -278,7 +249,7 @@ ft = { "markdown" },
   -- Auto save
   {
     "okuuva/auto-save.nvim",
-    enabled = false,
+    enabled = true,
     cmd = "ASToggle", -- optional for lazy loading on command
     event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
     opts = {

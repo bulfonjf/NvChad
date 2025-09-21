@@ -11,14 +11,15 @@ local options = {
     typescriptreact = { "prettier" },
     tsx = { "prettier" },
     jsx = { "prettier" },
-    cs = { "csharpier" },
+    --cs = { "csharpier" },
+    gleam = {"gleam"}
   },
 
-  -- format_on_save = {
-  --   -- These options will be passed to conform.format()
-  --   timeout_ms = 5500,
-  --   lsp_fallback = false,
-  -- },
+  format_on_save = {
+    -- These options will be passed to conform.format()
+    timeout_ms = 5500,
+    lsp_fallback = false,
+  },
 }
 
 return options
